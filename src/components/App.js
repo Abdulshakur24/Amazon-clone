@@ -6,7 +6,7 @@ import Login from "./Login";
 import Payment from "./Payment";
 import Orders from "./Orders";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { auth } from "../firebase";
+import { auth } from "../Firebase";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { signIn, signOut } from "../features/user";
@@ -19,8 +19,6 @@ const promise = loadStripe(APIKEY.publishableKey);
 
 function App() {
   const dispatch = useDispatch();
-  const [on, setOn] = useState(false);
-  console.log(APIKEY);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {

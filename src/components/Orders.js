@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../firebase";
+import { db } from "../Firebase";
 import Order from "./Order";
 import { useSelector } from "react-redux";
 import styled from "styled-components";

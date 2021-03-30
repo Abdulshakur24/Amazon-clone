@@ -2,7 +2,7 @@ import React from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import { auth } from "../firebase";
+import { auth } from "../Firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../features/user";
 import styled from "styled-components";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { auth, provider } from "../firebase";
+import { auth, provider } from "../Firebase";
 import styled from "styled-components";
 
 function Login() {

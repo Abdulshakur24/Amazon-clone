@@ -3,7 +3,7 @@ import CheckoutProduct from "./CheckoutProduct";
 import { Link, useHistory } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
-import { db } from "../firebase";
+import { db } from "../Firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { emptyBasket } from "../features/baskets";
 import styled from "styled-components";

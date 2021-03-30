@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
-const { APIKEY } = require("./src/config");
+const { APIKEY } = require("./src/Config");
 
 const stripe = require("stripe")(APIKEY.secretKey);
 
