@@ -13,7 +13,7 @@ import { signIn, signOut } from "../features/user";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-const { APIKEY } = require("../config");
+const { APIKEY } = require("../Config");
 
 const promise = loadStripe(APIKEY.publishableKey);
 
