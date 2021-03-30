@@ -1,11 +1,9 @@
 const express = require("express");
 const app = express();
-
 app.use(express.json());
+const { APIKEY } = require("./src/config");
 
-const stripe = require("stripe")(
-  "sk_test_51I9m6jIIzjjTQI3tEfo1oCEtOcOf6RGk4Y7UK0gZ5nB8Tpk2aFFO3pXhNq1gnjCR6U7skVtYocPRjxgqxHWB9WOa00abyow79q"
-);
+const stripe = require("stripe")(APIKEY.secretKey);
 
 app.post("/payment/confirm/:id", async (req, res) => {
   const id = req.params.id;

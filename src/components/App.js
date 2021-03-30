@@ -13,14 +13,14 @@ import { signIn, signOut } from "../features/user";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-const promise = loadStripe(
-  "pk_test_51I5tFfIlxVBlkyARgDg3mOEpnvAmhDf7QOqr4byEKxY6mcUdFQTacv7lO5dkFxUi746PymVZcDKZoFmkXILDy0k400RZTxoFoZ"
-);
+const { APIKEY } = require("../config");
+
+const promise = loadStripe(APIKEY.publishableKey);
 
 function App() {
   const dispatch = useDispatch();
   const [on, setOn] = useState(false);
-
+  console.log(APIKEY);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
@@ -46,22 +46,22 @@ function App() {
             <Login />
           </Route>
           <Route path="/orders">
-            <Header on={on} setOn={setOn} />
+            <Header />
             <Orders />
           </Route>
           <Route path="/checkout">
-            <Header on={on} setOn={setOn} />
+            <Header />
             <Checkout />
           </Route>
           <Route path="/payment">
-            <Header on={on} setOn={setOn} />
+            <Header />
             <Elements stripe={promise}>
               <Payment />
             </Elements>
           </Route>
           <Route path="/" exact>
-            <Header on={on} setOn={setOn} />
-            <Home on={on} setOn={setOn} />
+            <Header />
+            <Home />
           </Route>
         </Switch>
       </AppBody>
