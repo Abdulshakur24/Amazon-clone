@@ -13,7 +13,7 @@ export const basketSlice = createSlice({
       state.basket.splice(action.payload, 1);
     },
     emptyBasket: (state) => {
-      state.basket = [];
+      state.basket.length = 0;
     },
   },
 });

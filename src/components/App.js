@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "./Header";
 import Home from "./Home";
 import Checkout from "./Checkout";
@@ -19,22 +19,20 @@ const promise = loadStripe(KEY.publishableKey);
 
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
-      if (userAuth) {
-        dispatch(
-          signIn({
-            uid: userAuth.uid,
-            email: userAuth.email,
-            name: userAuth.displayName,
-          })
-        );
-      } else {
-        dispatch(signOut);
-      }
-      return unsubscribe;
-    });
-  }, []);
+  const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+    if (userAuth) {
+      dispatch(
+        signIn({
+          uid: userAuth.uid,
+          email: userAuth.email,
+          name: userAuth.displayName,
+        })
+      );
+    } else {
+      dispatch(signOut);
+    }
+    return unsubscribe;
+  });
 
   return (
     <Router>

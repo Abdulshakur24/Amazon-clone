@@ -26,6 +26,7 @@ function Header() {
           <img
             className="header_logo"
             src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
+            alt=""
           />
         </Link>
         <div className="header_search">
@@ -75,8 +76,8 @@ function Header() {
 export default Header;
 
 const HeaderBody = styled.div`
+  height: 5vh;
   .header_container {
-    height: 3.75rem;
     display: flex;
     flex-direction: row !important;
     align-items: center;
