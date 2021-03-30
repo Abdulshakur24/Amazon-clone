@@ -13,9 +13,9 @@ import { signIn, signOut } from "../features/user";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-const { APIKEY } = require("../Config");
+const { KEY } = require("../Config");
 
-const promise = loadStripe(APIKEY.publishableKey);
+const promise = loadStripe(KEY.publishableKey);
 
 function App() {
   const dispatch = useDispatch();

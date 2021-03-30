@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
-const { APIKEY } = require("./src/Config");
+const { KEY } = require("./src/Config");
 
-const stripe = require("stripe")(APIKEY.secretKey);
+const stripe = require("stripe")(KEY.secretKey);
 
 app.post("/payment/confirm/:id", async (req, res) => {
   const id = req.params.id;
