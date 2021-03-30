@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { db } from "./firebase";
-import "./Orders.css";
-import { useStateValue } from "./StateProvider";
+import { db } from "../firebase";
 import Order from "./Order";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
 
 function Orders() {
-  const [{ basket, user }, dispatch] = useStateValue();
+  const user = useSelector((state) => state.users.user);
   const [orders, setOrders] = useState([]);
 
+  console.log(orders);
   useEffect(() => {
+    setTimeout(() => {}, []);
     if (user) {
       db.collection("users")
         .doc(user?.uid)
@@ -26,18 +28,20 @@ function Orders() {
       setOrders([]);
     }
   }, [user]);
-
   return (
-    <div className="orders">
+    <OrdersBody>
       <h1>Your Orders</h1>
-
       <div className="orders__order">
-        {orders?.map((order) => (
-          <Order order={order} />
-        ))}
+        {orders?.map((order) => {
+          return <Order key={order.id} order={order} />;
+        })}
       </div>
-    </div>
+    </OrdersBody>
   );
 }
 
 export default Orders;
+
+const OrdersBody = styled.div`
+  padding: 0 5rem;
+`;

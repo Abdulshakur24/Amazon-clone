@@ -1,4 +1,3 @@
-import "./App.css";
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Home from "./Home";
@@ -7,39 +6,41 @@ import Login from "./Login";
 import Payment from "./Payment";
 import Orders from "./Orders";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useStateValue } from "./StateProvider";
-import { auth } from "./firebase";
+import { auth } from "../firebase";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { signIn, signOut } from "../features/user";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
 const promise = loadStripe(
   "pk_test_51I5tFfIlxVBlkyARgDg3mOEpnvAmhDf7QOqr4byEKxY6mcUdFQTacv7lO5dkFxUi746PymVZcDKZoFmkXILDy0k400RZTxoFoZ"
 );
 
 function App() {
-  const [{}, dispatch] = useStateValue();
+  const dispatch = useDispatch();
   const [on, setOn] = useState(false);
 
   useEffect(() => {
-    auth.onAuthStateChanged((authUser) => {
-      console.log(`The user is >>> ${authUser}`);
-
-      if (authUser) {
-        dispatch({
-          type: "SET_USER",
-          user: authUser,
-        });
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        dispatch(
+          signIn({
+            uid: userAuth.uid,
+            email: userAuth.email,
+            name: userAuth.displayName,
+          })
+        );
       } else {
-        dispatch({
-          type: "SET_USER",
-          user: null,
-        });
+        dispatch(signOut);
       }
+      return unsubscribe;
     });
   }, []);
+
   return (
     <Router>
-      <div className="app">
+      <AppBody>
         <Switch>
           <Route path="/login">
             <Login />
@@ -58,14 +59,19 @@ function App() {
               <Payment />
             </Elements>
           </Route>
-          <Route path="/">
+          <Route path="/" exact>
             <Header on={on} setOn={setOn} />
             <Home on={on} setOn={setOn} />
           </Route>
         </Switch>
-      </div>
+      </AppBody>
     </Router>
   );
 }
 
 export default App;
+
+const AppBody = styled.div`
+  margin: 0;
+  padding: 0;
+`;
